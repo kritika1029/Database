@@ -3,6 +3,7 @@ package net.guides.springboot2.crud.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.* ;
 
 //import javax.validation.Valid;
 
@@ -42,9 +43,26 @@ public class CandidateController {
     }
 
     @GetMapping("/interviewstag")
-    public List<Candidate> getCandidateByTag(@RequestParam(value = "tag" , defaultValue = "NOSUB")String tag) {
+    public List<Candidate> getCandidateByTag(@RequestParam(value = "tag" , defaultValue = "NOSUB")String tag ,@RequestParam(value = "time" , defaultValue = "NOSUB")String time_date1) {
+        List<Candidate> matches ;
+        List<Candidate> resultant = new LinkedList<>() ;
         System.out.println("Hey ! ");
-        return candidateRepository.findByTag(tag) ;
+        System.out.println(tag);
+        System.out.println(time_date1);
+        matches =  candidateRepository.findByTag(tag) ;
+        int length = matches.size() ;
+        System.out.println("Length = " + length);
+        for(int candidate = 0 ; candidate < length ; candidate ++)
+        {
+            System.out.println(matches.get(candidate).getTime_date1());
+            if(time_date1.equals(matches.get(candidate).getTime_date1()) || time_date1.equals("NOSUB"))
+            {
+                System.out.println("In here !");
+                resultant.add(matches.get(candidate)) ;
+            }
+
+        }
+        return  resultant ;
     }
 
 
