@@ -13,39 +13,39 @@ import org.springframework.web.bind.annotation.*;
 
 import net.guides.springboot2.crud.exception.ResourceNotFoundException;
 import net.guides.springboot2.crud.model.Candidate;
-import net.guides.springboot2.crud.repository.EmployeeRepository;
+//import net.guides.springboot2.crud.repository.EmployeeRepository;
 import net.guides.springboot2.crud.repository.CandidateRepository ;
 
 @RestController
 @RequestMapping("/api/v1")
-public class EmployeeController {
-	@Autowired
-	private CandidateRepository employeeRepository;
-	List<Candidate> matches ;
+public class CandidateController {
+    @Autowired
+    private CandidateRepository candidateRepository;
+    List<Candidate> matches ;
 
-	@GetMapping("/interviews")
-	public List<Candidate> getAllParticipants() {
-		return employeeRepository.findAll();
-	}
+    @GetMapping("/interviews")
+    public List<Candidate> getAllParticipants() {
+        return candidateRepository.findAll();
+    }
 
-	@GetMapping("/interviews/{id}")
-	public ResponseEntity<Candidate> getEmployeeById(@PathVariable(value = "id") Long employeeId)
-			throws ResourceNotFoundException {
-		Candidate candidate = employeeRepository.findById(employeeId)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
-		return ResponseEntity.ok().body(candidate);
-	}
+    @GetMapping("/interviews/{id}")
+    public ResponseEntity<Candidate> getCandidateById(@PathVariable(value = "id") Long candidateId)
+            throws ResourceNotFoundException {
+        Candidate candidate = candidateRepository.findById(candidateId)
+                .orElseThrow(() -> new ResourceNotFoundException("Candidate not found for this id :: " + candidateId));
+        return ResponseEntity.ok().body(candidate);
+    }
 
-	@PostMapping("/interviews")
-	public Candidate createEmployee(@Validated @RequestBody Candidate candidate) {
-		return employeeRepository.save(candidate);
-	}
+    @PostMapping("/interviews")
+    public Candidate createCandidate(@Validated @RequestBody Candidate candidate) {
+        return candidateRepository.save(candidate);
+    }
 
-	@GetMapping("/interviewstag")
-	public List<Candidate> getEmployeeByTag(@RequestParam(value = "tag" , defaultValue = "NOSUB")String tag) {
-		System.out.println("Hey ! ");
-		return employeeRepository.findByTag(tag) ;
-	}
+    @GetMapping("/interviewstag")
+    public List<Candidate> getCandidateByTag(@RequestParam(value = "tag" , defaultValue = "NOSUB")String tag) {
+        System.out.println("Hey ! ");
+        return candidateRepository.findByTag(tag) ;
+    }
 
 
 
@@ -76,3 +76,4 @@ public class EmployeeController {
 	}
 	*/
 }
+
