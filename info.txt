@@ -1,4 +1,3 @@
 Interview Scheduler App
 Matching on the basis of time-date and tag. 
-
-
+Inputs given from URL itself. 
