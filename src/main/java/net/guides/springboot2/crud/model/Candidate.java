@@ -8,25 +8,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "participant")
+@Table(name = "participants")
 public class Candidate {
     private long id;
     private String date1;
     private String tag;
     private String unique_id;
-    private String time;
+    private int time;
+    private int time2;
 
 
     public Candidate() {
 
     }
 
-    public Candidate(long id, String date1 , String tag, String unique_id, String time) {
+    public Candidate(long id, String date1 , String tag, String unique_id, int time,int time2) {
     	 this.id=id;
         this.date1 = date1;
         this.tag = tag;       
         this.unique_id=unique_id;
         this.time=time;
+        this.setTime2(time2);
     }
 
     @Id
@@ -71,15 +73,24 @@ public class Candidate {
 		this.unique_id = unique_id;
 	}
 	 @Column(name="time",nullable = false)
-	public String getTime() {
+	public int getTime() {
 		 System.out.println("Done 4");
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(int time) {
 		System.out.println("Done 4-");
 		this.time = time;
 	}
+	 @Column(name="time2",nullable = false)
+	public int getTime2() {
+		return time2;
+	}
+
+	public void setTime2(int time2) {
+		this.time2 = time2;
+	}
+
 	
 
 	@Override
@@ -88,6 +99,7 @@ public class Candidate {
 				", time="+ time + "]";
 	}
 
+	
 	
 
 }
