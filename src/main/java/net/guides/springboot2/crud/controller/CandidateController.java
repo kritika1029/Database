@@ -3,6 +3,8 @@ package net.guides.springboot2.crud.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 //import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ public class CandidateController {
     @Autowired
     private CandidateRepository candidateRepository;
     List<Candidate> matches ;
+	
 
     @GetMapping("/interviews")
     public List<Candidate> getAllParticipants() {
@@ -37,7 +40,7 @@ public class CandidateController {
     public ResponseEntity<Candidate> getCandidateById(@PathVariable(value = "id") Long candidateId)
             throws ResourceNotFoundException {
         Candidate candidate = candidateRepository.findById(candidateId)
-                .orElseThrow(() -> new ResourceNotFoundException("Candidate not found for this id :: " + candidateId));
+                .orElseThrow(() -> new ResourceNotFoundException("Candidate not found for this id : " + candidateId));
         return ResponseEntity.ok().body(candidate);
     }
 
@@ -50,16 +53,19 @@ public class CandidateController {
     public List<Candidate> getCandidateByTag(@RequestParam(value = "tag" , defaultValue = "NOSUB")String tag ,
     		                                 @RequestParam(value = "date" , defaultValue = "NOSUB")String date1,
     		                                 @RequestParam(value = "uniqueId" , defaultValue = "NOSUB")String unique_id,
-    		                                 @RequestParam(value = "time" , defaultValue = "NOSUB")String time)
+    		                                 @RequestParam(value = "time1" )int time,
+    		                                 @RequestParam(value = "time2" )int time2)
     {
         List<Candidate> matches ;
         List<Candidate> resultant = new LinkedList<>() ;
+        
         System.out.println("Hey ! ");
         System.out.println(tag);
         System.out.println(date1);
         System.out.println(unique_id);
         System.out.println(time);
-        matches =  candidateRepository.findByTag(tag) ;
+        System.out.println(time2);
+        matches = candidateRepository.findByTag(tag) ;
         int length = matches.size() ;
         System.out.println("Length = " + length);
         for(int candidate = 0 ; candidate < length ; candidate ++)
@@ -68,14 +74,30 @@ public class CandidateController {
             System.out.println(matches.get(candidate).getdate1());
             if((date1.equals(matches.get(candidate).getdate1())) && !(unique_id.equalsIgnoreCase(matches.get(candidate).getUniqueId())))
             {
-                System.out.println("In here !");
-                resultant.add(matches.get(candidate)) ;
+            	for(int i=time;i<time2;i+=100)
+            	{
+            		for(int j=(matches.get(candidate).getTime());j<(matches.get(candidate).getTime2());j+=100)
+            		{
+            			if(i==j)
+            			{
+            	
+            	
+                        System.out.println("In here !");
+                        resultant.add(matches.get(candidate)) ;
+            			}
+            		}
+            	}
             }
 
         }
-        return  resultant ;
+        
+        
+        return resultant ;
     }
 
+	
+
+	
 
 
 	/*
