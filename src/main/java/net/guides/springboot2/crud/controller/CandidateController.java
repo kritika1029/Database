@@ -1,16 +1,20 @@
 package net.guides.springboot2.crud.controller;
 
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.* ;
 
 //import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import net.guides.springboot2.crud.exception.ResourceNotFoundException;
 import net.guides.springboot2.crud.model.Candidate;
@@ -43,19 +47,26 @@ public class CandidateController {
     }
 
     @GetMapping("/interviewstag")
-    public List<Candidate> getCandidateByTag(@RequestParam(value = "tag" , defaultValue = "NOSUB")String tag ,@RequestParam(value = "time" , defaultValue = "NOSUB")String time_date1) {
+    public List<Candidate> getCandidateByTag(@RequestParam(value = "tag" , defaultValue = "NOSUB")String tag ,
+    		                                 @RequestParam(value = "date" , defaultValue = "NOSUB")String date1,
+    		                                 @RequestParam(value = "uniqueId" , defaultValue = "NOSUB")String unique_id,
+    		                                 @RequestParam(value = "time" , defaultValue = "NOSUB")String time)
+    {
         List<Candidate> matches ;
         List<Candidate> resultant = new LinkedList<>() ;
         System.out.println("Hey ! ");
         System.out.println(tag);
-        System.out.println(time_date1);
+        System.out.println(date1);
+        System.out.println(unique_id);
+        System.out.println(time);
         matches =  candidateRepository.findByTag(tag) ;
         int length = matches.size() ;
         System.out.println("Length = " + length);
         for(int candidate = 0 ; candidate < length ; candidate ++)
         {
-            System.out.println(matches.get(candidate).getTime_date1());
-            if(time_date1.equals(matches.get(candidate).getTime_date1()) || time_date1.equals("NOSUB"))
+        	
+            System.out.println(matches.get(candidate).getdate1());
+            if((date1.equals(matches.get(candidate).getdate1())) && !(unique_id.equalsIgnoreCase(matches.get(candidate).getUniqueId())))
             {
                 System.out.println("In here !");
                 resultant.add(matches.get(candidate)) ;
