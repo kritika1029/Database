@@ -8,22 +8,25 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "participants")
+@Table(name = "participant")
 public class Candidate {
     private long id;
-    private String time_date1;
-    private String time_date2;
+    private String date1;
     private String tag;
+    private String unique_id;
+    private String time;
 
 
     public Candidate() {
 
     }
 
-    public Candidate(String time_date1 , String time_date2 , String tag) {
-        this.time_date1 = time_date1;
-        this.time_date2 = time_date2;
-        this.tag = tag;
+    public Candidate(long id, String date1 , String tag, String unique_id, String time) {
+    	 this.id=id;
+        this.date1 = date1;
+        this.tag = tag;       
+        this.unique_id=unique_id;
+        this.time=time;
     }
 
     @Id
@@ -35,41 +38,56 @@ public class Candidate {
         this.id = id;
     }
 
-    @Column(name = "time_date1", nullable = false)
-    public String getTime_date1() {
+    @Column(name = "date1", nullable = false)
+    public String getdate1() {
         System.out.println("Done 1");
-        return time_date1;
+        return date1;
     }
-    public void setTime_date1(String time_date1) {
+    
+    public void setdate1(String date1) {
         System.out.println("Done 1 - ");
-        this.time_date1 = time_date1;
+        this.date1 = date1;
     }
 
-    @Column(name = "time_date2", nullable = false)
-    public String getTime_date2() {
-        System.out.println("Done 2");
-        return time_date2;
-    }
-    public void setTime_date2(String time_date2) {
-        System.out.println("Done 2 - ");
-        this.time_date2 = time_date2;
-    }
 
     @Column(name = "tag", nullable = false)
     public String getTag() {
-        System.out.println("Done 3");
+        System.out.println("Done 2");
         return tag ;
     }
     public void setTag(String tag) {
-        System.out.println("Done 3 - ");
+        System.out.println("Done 2 - ");
         this.tag = tag;
     }
+    
+    @Column(name="unique_id",nullable = false)
+	public String getUniqueId() {
+    	System.out.println("Done 3");
+		return unique_id;
+	}
+
+	public void setUniqueId(String unique_id) {
+		System.out.println("Done 3-");
+		this.unique_id = unique_id;
+	}
+	 @Column(name="time",nullable = false)
+	public String getTime() {
+		 System.out.println("Done 4");
+		return time;
+	}
+
+	public void setTime(String time) {
+		System.out.println("Done 4-");
+		this.time = time;
+	}
+	
 
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", time_date1=" + time_date1 + ", time_date2=" + time_date2 + ", tag=" + tag
-				+ "]";
+		return "Employee [id=" + id + ", date1=" + date1 + ", tag=" + tag+", unique_id="+ unique_id+
+				", time="+ time + "]";
 	}
 
+	
 
 }
